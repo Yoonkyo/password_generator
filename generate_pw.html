@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Password Generator</title></head>
+<body>
+<h3>실습실 관리용 암호 생성기</h3>
+<button id="myButton">복사하기</button>
+<hr>
+<script>
+	function gen(num){
+		let result; 
+		number = '0123456789';
+		alpha = 'abcdefghijklmnopqrstuvwxyzQBCDEFGHIJKLMNOPQRSTUVWXYZ';
+		console.log(alpha.length);
+		special = '!@#$%!@#$%';
+		pw = '';
+		special_i = Math.ceil(Math.random()*8);
+		for(let i=1; i<=8; i++) { 
+			let temp;
+			if(i == special_i) {
+				pw += special[num-1];
+			}
+			ran_select = Math.ceil(Math.random()*15)  // 확률 조정
+			if(ran_select % 2 == 0){
+				ran_i = Math.floor(Math.random()*number.length);
+				pw += number[ran_i];
+			}
+			else{
+				ran_i = Math.floor(Math.random()*alpha.length);
+				pw += alpha[ran_i];
+			}
+		}
+		return pw;
+	}
+
+	let num = prompt("몇 개 생성할까요", 5);
+	if(num == null) { 
+	// 취소 버튼이나 다이얼로그를 닫은 경우
+		alert("프로그램을 종료합니다.");
+	}
+	else{
+		let result = '';
+		for(let j=1; j<=num; j++) {
+			pw = gen(j);
+			document.write(pw + "<br>");
+			result += pw + "\n";
+		} 
+		// button 클릭 이벤트
+		document.getElementById("myButton").onclick = () => {
+			window.navigator.clipboard.writeText(result).then(()=>{
+				if(result == ""){
+					alert("복사할 텍스트가 없습니다");
+				}
+				else{
+					alert("복사완료");
+				}
+			})
+		}
+	}
+
+</script>
+</body>
+</html>
